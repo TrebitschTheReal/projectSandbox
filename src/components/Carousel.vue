@@ -22,6 +22,7 @@
                 >
             </b-carousel-slide>
         </b-carousel>
+       <b-link :href="'#' + myAnchor" @click="getSlideInfoForAnchor()" v-model="currentSlide">Link</b-link>
     </div>
 </template>
 
@@ -37,12 +38,18 @@
             return {
                 currentSlide: 0,
                 dataForProject: myDataBase,
+               myAnchor: 4,
             }
         },
         methods: {
             onSlideStart(slide) {
-                sendCarouselData.$emit('sendTheCarouselPosition', slide);
+               this.myAnchor = this.currentSlide;
+               sendCarouselData.$emit('sendTheCarouselPosition', slide);
             },
+
+           getSlideInfoForAnchor() {
+               this.currentSlide = this.myAnchor;
+           }
         },
 
         created() {
